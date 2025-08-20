@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserInfo = async (token) => {
     try {
-      const response = await fetch('/auth/v2/user', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/user`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     
     try {
-      const response = await fetch('/auth/v2/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     
     try {
-      const response = await fetch('/auth/v2/signup', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     // Call logout endpoint
-    fetch('/auth/v2/logout', {
+    fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/logout`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,

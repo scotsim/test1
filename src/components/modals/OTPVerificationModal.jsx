@@ -39,7 +39,7 @@ const OTPVerificationModal = ({ isOpen, onClose, email, onVerificationSuccess })
     setIsVerifying(true);
     
     try {
-      const response = await fetch('/auth/v2/verify-email', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/verify-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const OTPVerificationModal = ({ isOpen, onClose, email, onVerificationSuccess })
     setIsResending(true);
     
     try {
-      const response = await fetch('/auth/v2/resend-verification', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/resend-verification`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

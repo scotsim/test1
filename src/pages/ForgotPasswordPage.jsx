@@ -37,7 +37,20 @@ const ForgotPasswordPage = () => {
     setLoading(true);
     
     try {
-      await api.requestPasswordReset(email);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/request-password-reset`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send reset email');
+      }
+
       setSent(true);
       toast({
         title: "Reset Link Sent",

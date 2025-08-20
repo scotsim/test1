@@ -1,7 +1,5 @@
 // API utility functions for authentication
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://your-api-domain.com' 
-  : '';
+const API_BASE_URL = 'https://auth-service-v0rl.onrender.com';
 
 class ApiError extends Error {
   constructor(message, status, data) {
