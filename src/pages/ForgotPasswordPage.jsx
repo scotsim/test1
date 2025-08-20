@@ -37,7 +37,7 @@ const ForgotPasswordPage = () => {
     setLoading(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/request-password-reset`, {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/auth/v2/request-password-reset', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,9 +57,10 @@ const ForgotPasswordPage = () => {
         description: "Please check your email for password reset instructions.",
       });
     } catch (error) {
+      console.error('Password reset error:', error);
       toast({
         title: "Request Failed",
-        description: error.message || "Failed to send reset email. Please try again.",
+        description: `Connection failed: ${error.message}. Please check your internet connection.`,
         variant: "destructive",
       });
     } finally {

@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [isTestingConnection, setIsTestingConnection] = useState(false);
   const { login, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -39,6 +40,21 @@ const LoginPage = () => {
     if (validateForm()) {
       await login(email, password);
     }
+  };
+
+  const testConnection = async () => {
+    setIsTestingConnection(true);
+    try {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/list/endpoints');
+      if (response.ok) {
+        alert('✅ Connection successful! Backend is reachable.');
+      } else {
+        alert('❌ Connection failed. Backend returned error: ' + response.status);
+      }
+    } catch (error) {
+      alert('❌ Connection failed: ' + error.message);
+    }
+    setIsTestingConnection(false);
   };
 
   return (
@@ -110,6 +126,15 @@ const LoginPage = () => {
                 {loading ? 'Authenticating...' : 'Log In'}
               </Button>
             </form>
+            
+            <Button 
+              variant="outline" 
+              onClick={testConnection}
+              disabled={isTestingConnection}
+              className="w-full mt-4"
+            >
+              {isTestingConnection ? 'Testing...' : 'Test Backend Connection'}
+            </Button>
           </CardContent>
           <CardFooter className="flex flex-col items-center space-y-3 p-8 bg-primary/5">
             <Button variant="link" onClick={() => navigate('/forgot-password')} className="text-sm text-muted-foreground hover:text-primary">

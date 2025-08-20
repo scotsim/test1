@@ -1,6 +1,26 @@
 // API utility functions for authentication
 const API_BASE_URL = 'https://auth-service-v0rl.onrender.com';
 
+// Test connection to the API
+const testConnection = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/list/endpoints`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('API Connection test:', response.ok ? 'Success' : 'Failed');
+    return response.ok;
+  } catch (error) {
+    console.error('API Connection test failed:', error);
+    return false;
+  }
+};
+
+// Test connection on module load
+testConnection();
+
 class ApiError extends Error {
   constructor(message, status, data) {
     super(message);

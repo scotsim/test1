@@ -39,7 +39,7 @@ const OTPVerificationModal = ({ isOpen, onClose, email, onVerificationSuccess })
     setIsVerifying(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/verify-email`, {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/auth/v2/verify-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,9 +67,10 @@ const OTPVerificationModal = ({ isOpen, onClose, email, onVerificationSuccess })
         });
       }
     } catch (error) {
+      console.error('OTP verification error:', error);
       toast({
         title: "Verification Error",
-        description: "Failed to verify OTP. Please try again.",
+        description: `Connection failed: ${error.message}. Please try again.`,
         variant: "destructive",
       });
     } finally {
@@ -83,7 +84,7 @@ const OTPVerificationModal = ({ isOpen, onClose, email, onVerificationSuccess })
     setIsResending(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/resend-verification`, {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/auth/v2/resend-verification', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,9 +109,10 @@ const OTPVerificationModal = ({ isOpen, onClose, email, onVerificationSuccess })
         });
       }
     } catch (error) {
+      console.error('Resend OTP error:', error);
       toast({
         title: "Resend Error",
-        description: "Failed to resend verification code. Please try again.",
+        description: `Connection failed: ${error.message}. Please try again.`,
         variant: "destructive",
       });
     } finally {

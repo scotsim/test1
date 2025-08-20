@@ -27,9 +27,10 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserInfo = async (token) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/user`, {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/auth/v2/user', {
         headers: {
           'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
       });
 
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/login`, {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/auth/v2/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,9 +88,10 @@ export const AuthProvider = ({ children }) => {
         });
       }
     } catch (error) {
+      console.error('Login error:', error);
       toast({ 
         title: "Login Error", 
-        description: "Failed to connect to server. Please try again.", 
+        description: `Connection failed: ${error.message}. Please check your internet connection.`, 
         variant: "destructive" 
       });
     }
@@ -101,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/signup`, {
+      const response = await fetch('https://auth-service-v0rl.onrender.com/auth/v2/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,9 +130,10 @@ export const AuthProvider = ({ children }) => {
         });
       }
     } catch (error) {
+      console.error('Signup error:', error);
       toast({ 
         title: "Signup Error", 
-        description: "Failed to connect to server. Please try again.", 
+        description: `Connection failed: ${error.message}. Please check your internet connection.`, 
         variant: "destructive" 
       });
     }
@@ -149,9 +152,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     // Call logout endpoint
-    fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://auth-service-v0rl.onrender.com'}/auth/v2/logout`, {
+    fetch('https://auth-service-v0rl.onrender.com/auth/v2/logout', {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
       },
     }).catch(() => {
